@@ -1,3 +1,4 @@
+/* styles */
 body {
     display: flex;
     justify-content: center;
@@ -14,10 +15,34 @@ body {
     border: 1px solid black;
 }
 
-.box {
-    width: calc(100% / 16);
-    height: calc(100% / 16);
+.tile {
+    width: calc(100% / var(--tiles-per-side));
+    height: calc(100% / var(--tiles-per-side));
     box-sizing: border-box;
     border: 1px solid lightgray;
-    background-color: #ffffff;
+    background-color: #0a0000;
+}
+
+.opacity0 {
+    opacity: 0;
+}
+
+.opacity20 {
+    opacity: 0.2;
+}
+
+.opacity40 {
+    opacity: 0.4;
+}
+
+.opacity60 {
+    opacity: 0.6;
+}
+
+.opacity80 {
+    opacity: 0.8;
+}
+
+.opacity100 {
+    opacity: 1.0;
 }

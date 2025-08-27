@@ -6,6 +6,7 @@ body {
     flex-direction: column;
     min-height: 100vh;
     margin: 0;
+    background-color: #3C4043;
 }
 
 .grid-container {
@@ -15,36 +16,14 @@ body {
     height: 720px;
     border: 80px solid #FF501A;
     border-radius: 40px;
-    box-shadow: 0 0 0 1px rgb(0, 0, 0);
+    box-shadow: 0 0 0 2px rgb(0, 0, 0);
+    background-color: rgb(255, 255, 255);
 }
 
 .tile {
     width: calc(100% / var(--tiles-per-side));
     height: calc(100% / var(--tiles-per-side));
-}
-
-.opacity0 {
-    background-color: rgba(0, 0, 0, 0);
-}
-
-.opacity20 {
-    background-color: rgba(0, 0, 0, 0.6);
-}
-
-.opacity40 {
-    background-color: rgba(0, 0, 0, 0.7);
-}
-
-.opacity60 {
-    background-color: rgba(0, 0, 0, 0.8);
-}
-
-.opacity80 {
-    background-color: rgba(0, 0, 0, 0.9);
-}
-
-.opacity100 {
-    background-color: rgba(0, 0, 0, 1.0);
+    background-color: rgb(255, 255, 255);
 }
 
 .title-text {
@@ -69,5 +48,6 @@ body {
   }
   
   .new-grid-button:hover {
-    background-color: #3033d1;
+    transform: scale(1.1);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2)
   }

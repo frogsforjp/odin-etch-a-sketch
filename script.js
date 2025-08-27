@@ -54,3 +54,18 @@ function getTileOpacityClass(tile, arrayOfClasses) {
 }
 
 grid.addEventListener('mouseover', colorHoveredTiles);
+
+function promptGridTiles(callbackFunction) {
+    const tilesPerSide = prompt("Choose how many tiles per side (Max 100)", "");
+    const tilesPerSideInteger = parseInt(tilesPerSide);
+
+    if (!Number.isInteger(tilesPerSideInteger) || tilesPerSide <= 0 || tilesPerSide > 100) {
+        alert("Please enter a valid number from 1-100");
+    } else {
+        grid.replaceChildren();
+        createGrid(tilesPerSide);
+    }
+}
+
+const gridButton = document.querySelector('.new-grid-button');
+gridButton.addEventListener('click', promptGridTiles);

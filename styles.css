@@ -3,6 +3,7 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
+    flex-direction: column;
     min-height: 100vh;
     margin: 0;
 }
@@ -45,4 +46,8 @@ body {
 
 .opacity100 {
     opacity: 1.0;
+}
+
+.new-grid-button {
+
 }

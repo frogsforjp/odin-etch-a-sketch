@@ -8,7 +8,14 @@
     </head>
     <body>
         <div class="settings">
-            <button class="new-grid-button">Generate new grid</button>
+            <input class="color-picker" type="color">
+            <div class="slider-container">
+                <input type="range" min="4" max="100" value="16" class="slider">
+                <!-- displays the slider value -->
+                 <div class="slider-value-wrapper">
+                    <span class="slider-value">16 x 16</span>
+                 </div>
+            </div>
             <div class="button-container">
                 <button class="color">Color Mode</button>
                 <button class="erase">Eraser Mode</button>

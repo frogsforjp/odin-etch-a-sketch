@@ -12,6 +12,9 @@ const shadingBtn = document.querySelector('.shade');
 const eraserBtn = document.querySelector('.erase');
 const clearBtn = document.querySelector('.clear');
 const toggleBtn = document.querySelector('.toggle');
+const colorPick = document.querySelector('.color-picker');
+const slider = document.querySelector('.slider');
+const sliderValue = document.querySelector('.slider-value');
 
 function createGrid(tilesPerSide) {
     // remove this line when you add a slider to update size
@@ -58,23 +61,22 @@ function Draw(event) {
     }
 }
 
-function promptGridTiles() {
-    const tilesPerSide = prompt("Choose how many tiles per side (Max 100)", "");
-    const tilesPerSideInteger = parseInt(tilesPerSide);
-
-    if (!Number.isInteger(tilesPerSideInteger) || tilesPerSide <= 0 || tilesPerSide > 100) {
-        alert("Please enter a valid number from 1-100");
-    } else {
-        createGrid(tilesPerSide);
-    }
-}
-
 function clearBoard() {
     createGrid(currentSize);
 }
 
 function updateCurrentMode(newMode) {
     currentMode = newMode;
+}
+
+function updateColor(event) {
+    currentColor = event.target.value;
+}
+
+function changeSliderValue(event) {
+    let size = event.target.value
+    sliderValue.textContent = `${size} x ${size}`
+    createGrid(size);
 }
 
 rainbowBtn.addEventListener('click', () => updateCurrentMode('rainbow'));
@@ -84,8 +86,8 @@ colorBtn.addEventListener('click', () => updateCurrentMode('fill'));
 // clearBoard works with no argument because it's waiting for the event as a
 // argument which it receives on a click. That's why I needed to use anonymous
 // functions above
+colorPick.addEventListener('input', updateColor);
 clearBtn.addEventListener('click', clearBoard);
-
-gridButton.addEventListener('click', promptGridTiles);
+slider.addEventListener('input', changeSliderValue);
 
 createGrid(currentSize);

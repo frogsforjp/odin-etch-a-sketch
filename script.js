@@ -17,8 +17,7 @@ const slider = document.querySelector('.slider');
 const sliderValue = document.querySelector('.slider-value');
 
 function createGrid(tilesPerSide) {
-    // remove this line when you add a slider to update size
-    currentSize = tilesPerSide;
+    
     grid.replaceChildren();
     const totalTiles = tilesPerSide * tilesPerSide;
 
@@ -31,33 +30,41 @@ function createGrid(tilesPerSide) {
             height: calc(100% / ${tilesPerSide});
         `;
         
-        // event listeners for painting here
-        tile.addEventListener('mouseover', Draw);
+        // second event listener for drag mode here?
+        tile.addEventListener('mouseover', draw);
     }
 }
 
-function Draw(event) {
+function draw(event) {
     let tile = event.target;
 
-    if (currentMode == 'fill') {
-        tile.style.opacity = 1;
-        tile.style.backgroundColor = currentColor;
-    } else if (currentMode == 'rainbow') {
-        tile.style.opacity = 1;
-        let r = Math.floor(Math.random() * 256);
-        let g = Math.floor(Math.random() * 256);
-        let b = Math.floor(Math.random() * 256);
-        tile.style.backgroundColor = `rgb(${r}, ${g}, ${b})`;
-    } else if (currentMode == 'shade') {
-        let currentOpacity = parseFloat(tile.style.opacity);
-        if (currentOpacity < 1) {
-            currentOpacity += 0.1;
-            tile.style.opacity = currentOpacity;
+    switch (currentMode) {
+        case 'fill':
+            tile.style.opacity = 1;
             tile.style.backgroundColor = currentColor;
-        }
-    } else if (currentMode == 'erase') {
-        tile.style.opacity = 0;
-        tile.style.backgroundColor = 'white';
+            break;
+            
+        case 'rainbow':
+            tile.style.opacity = 1;
+            let r = Math.floor(Math.random() * 256);
+            let g = Math.floor(Math.random() * 256);
+            let b = Math.floor(Math.random() * 256);
+            tile.style.backgroundColor = `rgb(${r}, ${g}, ${b})`;
+            break;
+
+        case 'shade':
+            let currentOpacity = parseFloat(tile.style.opacity);
+            if (currentOpacity < 1) {
+                currentOpacity += 0.1;
+                tile.style.opacity = currentOpacity;
+                tile.style.backgroundColor = currentColor;
+            }
+            break;
+        
+        case 'erase':
+            tile.style.opacity = 0;
+            tile.style.backgroundColor = 'white';
+            break;  
     }
 }
 
@@ -91,3 +98,8 @@ clearBtn.addEventListener('click', clearBoard);
 slider.addEventListener('input', changeSliderValue);
 
 createGrid(currentSize);
+
+// add a function to update buttons to highlight which one is selected
+
+// function for drag mode?
+// where to check mode? event listener for drag? (check if drag is active)

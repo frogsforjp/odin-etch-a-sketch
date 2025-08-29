@@ -1,9 +1,7 @@
-/* styles */
 body {
     display: flex;
-    justify-content:flex-start;
+    justify-content: center;
     align-items: center;
-    flex-direction: column;
     min-height: 100vh;
     margin: 0;
     background-color: #3C4043;
@@ -20,11 +18,11 @@ body {
     background-color: rgb(255, 255, 255);
 }
 
-.tile {
+/* .tile {
     width: calc(100% / var(--tiles-per-side));
     height: calc(100% / var(--tiles-per-side));
     background-color: rgb(255, 255, 255);
-}
+} */
 
 .title-text {
     font-family:'Times New Roman', Times, serif;
@@ -45,9 +43,44 @@ body {
     font-size: 16px;
     cursor: pointer;
     transition: background-color 0.3s ease;
-  }
-  
-  .new-grid-button:hover {
-    transform: scale(1.1);
-    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2)
-  }
+}
+
+.button-container {
+  display: flex;
+  flex-wrap: wrap;
+  width: 300px;
+  height: 300px;
+  gap: 20px;
+  justify-content: center;
+  align-items: center;
+  padding: 10px;
+  box-sizing: border-box;
+}
+
+button:hover {
+  transform: scale(1.1);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+
+.button-container button {
+    flex: 1 1 calc(50% - 10px);
+    height: 30px;
+    border: 1px solid #ccc;
+    background-color: #f0f0f0;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+.settings {
+    display: flex;
+    flex-direction: column;
+    width: 300px;
+    height: 300px;
+    justify-content: center;
+    align-items: center;
+    margin-right: 50px;
+    background-color: #535679;
+    border: 1px rgb(0, 0, 0);
+    box-shadow: 0 0 0 2px rgb(0, 0, 0);
+    border-radius: 10px;
+}

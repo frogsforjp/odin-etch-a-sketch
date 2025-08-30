@@ -106,6 +106,8 @@ function changeSliderValue(event) {
     let size = event.target.value
     sliderValue.textContent = `${size} x ${size}`
     createGrid(size);
+
+    currentSize = size;
 }
 
 function updateActiveButton(mode) {

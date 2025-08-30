@@ -7,8 +7,8 @@ let isMouseDown = false;
 const grid = document.querySelector('.grid-container');
 const colorBtn = document.querySelector('.color');
 const rainbowBtn = document.querySelector('.rainbow');
-const shadingBtn = document.querySelector('.shade');
-const eraserBtn = document.querySelector('.erase');
+const shadeBtn = document.querySelector('.shade');
+const eraseBtn = document.querySelector('.erase');
 const clearBtn = document.querySelector('.clear');
 const toggleBtn = document.querySelector('.toggle');
 const colorPick = document.querySelector('.color-picker');
@@ -22,6 +22,8 @@ function createGrid(tilesPerSide) {
     for (let i = totalTiles; i > 0; i--) {
         const tile = document.createElement('div');
         grid.appendChild(tile);
+        // The width/height here can be changed to a variable that scales
+        // based on client size and is made before the for loop for readability
         tile.style.cssText = `
             opacity: 0;
             width: calc(100% / ${tilesPerSide});
@@ -30,8 +32,8 @@ function createGrid(tilesPerSide) {
         
         // the potential 10,000 event listeners need to be reduced here
         tile.addEventListener('mouseover', () => {
-            // the second condition after || is necessary to allow you to 
-            // color more than 1 tile at a time when using drag mode
+            // the second condition after || is necessary to allow coloring of
+            // more than 1 tile at a time after clicking with drag mode
             if (currentDrawMode == 'hover' || currentDrawMode == 'drag' && isMouseDown) {
                 draw(tile);
             }
@@ -83,6 +85,7 @@ function clearBoard() {
 
 function updateCurrentMode(newMode) {
     currentMode = newMode;
+    updateActiveButton(newMode);
 }
 
 function updateCurrentColor(event) {
@@ -105,10 +108,37 @@ function changeSliderValue(event) {
     createGrid(size);
 }
 
+function updateActiveButton(mode) {
+    // maybe there's a better way to write this?
+    colorBtn.classList.remove('active-button');
+    rainbowBtn.classList.remove('active-button');
+    shadeBtn.classList.remove('active-button');
+    eraseBtn.classList.remove('active-button');
+
+    switch (mode) {
+        case 'color':
+            colorBtn.classList.add('active-button');
+            break;
+
+        case 'rainbow':
+            rainbowBtn.classList.add('active-button');
+            break;
+
+        case 'shade':
+            shadeBtn.classList.add('active-button');
+            break;
+
+        case 'erase':
+            eraseBtn.classList.add('active-button');
+            break;
+    }
+}
+
 rainbowBtn.addEventListener('click', () => updateCurrentMode('rainbow'));
-eraserBtn.addEventListener('click', () => updateCurrentMode('erase'));
-shadingBtn.addEventListener('click', () => updateCurrentMode('shade'));
+eraseBtn.addEventListener('click', () => updateCurrentMode('erase'));
+shadeBtn.addEventListener('click', () => updateCurrentMode('shade'));
 colorBtn.addEventListener('click', () => updateCurrentMode('color'));
+
 clearBtn.addEventListener('click', clearBoard);
 toggleBtn.addEventListener('click', updateCurrentDrawMode);
 colorPick.addEventListener('input', updateCurrentColor);
@@ -118,4 +148,11 @@ grid.addEventListener('mousedown', () => isMouseDown = true);
 grid.addEventListener('mouseup', () => isMouseDown = false);
 
 createGrid(currentSize);
+updateActiveButton('color');
 
+// TO DO:
+
+// CSS styling + remove redundant classes
+// remove the 10000 event listeners (refactor: Reduce number of event listeners to improve performance)
+// bugfix for drag function grabbing tiles instead of dragging
+// scale the etch a sketch area based on client window size

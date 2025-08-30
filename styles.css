@@ -62,7 +62,7 @@ button:hover {
   box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
 }
 
-.button-container button {
+/*.button-container*/ button {
     flex: 1 1 calc(50% - 10px);
     height: 30px;
     border: 1px solid #ccc;
@@ -83,4 +83,8 @@ button:hover {
     border: 1px rgb(0, 0, 0);
     box-shadow: 0 0 0 2px rgb(0, 0, 0);
     border-radius: 10px;
+}
+
+.active-button {
+    background-color: #adadad;
 }

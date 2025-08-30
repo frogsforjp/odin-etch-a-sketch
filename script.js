@@ -81,6 +81,12 @@ function draw(tile) {
 
 function clearBoard() {
     createGrid(currentSize);
+    grid.classList.add('grid-shake');
+
+    grid.addEventListener('animationend', () => {
+        grid.classList.remove('grid-shake');
+    }, {once: true}) 
+    // The { once: true } option ensures the listener is removed after it runs
 }
 
 function updateCurrentMode(newMode) {

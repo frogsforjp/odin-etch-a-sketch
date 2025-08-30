@@ -1,11 +1,10 @@
-let currentMode = 'fill';
+let currentMode = 'color';
 let currentColor = 'black';
 let currentSize = 16;
-
+let currentDrawMode = 'hover';
+let isMouseDown = false;
 
 const grid = document.querySelector('.grid-container');
-const gridButton = document.querySelector('.new-grid-button');
-
 const colorBtn = document.querySelector('.color');
 const rainbowBtn = document.querySelector('.rainbow');
 const shadingBtn = document.querySelector('.shade');
@@ -17,7 +16,6 @@ const slider = document.querySelector('.slider');
 const sliderValue = document.querySelector('.slider-value');
 
 function createGrid(tilesPerSide) {
-    
     grid.replaceChildren();
     const totalTiles = tilesPerSide * tilesPerSide;
 
@@ -30,16 +28,27 @@ function createGrid(tilesPerSide) {
             height: calc(100% / ${tilesPerSide});
         `;
         
-        // second event listener for drag mode here?
-        tile.addEventListener('mouseover', draw);
+        // the potential 10,000 event listeners need to be reduced here
+        tile.addEventListener('mouseover', () => {
+            // the second condition after || is necessary to allow you to 
+            // color more than 1 tile at a time when using drag mode
+            if (currentDrawMode == 'hover' || currentDrawMode == 'drag' && isMouseDown) {
+                draw(tile);
+            }
+        })
+        
+        tile.addEventListener('mousedown', () => {
+            if (currentDrawMode == 'drag') {
+                draw(tile);
+            }
+        })
     }
 }
 
-function draw(event) {
-    let tile = event.target;
+function draw(tile) {
 
     switch (currentMode) {
-        case 'fill':
+        case 'color':
             tile.style.opacity = 1;
             tile.style.backgroundColor = currentColor;
             break;
@@ -76,8 +85,18 @@ function updateCurrentMode(newMode) {
     currentMode = newMode;
 }
 
-function updateColor(event) {
+function updateCurrentColor(event) {
     currentColor = event.target.value;
+}
+
+function updateCurrentDrawMode() {
+    if (currentDrawMode == 'hover') {
+        currentDrawMode = 'drag';
+        toggleBtn.textContent = 'Mode: Drag';
+    } else if (currentDrawMode == 'drag') {
+        currentDrawMode = 'hover';
+        toggleBtn.textContent = 'Mode: Hover';
+    }
 }
 
 function changeSliderValue(event) {
@@ -89,17 +108,14 @@ function changeSliderValue(event) {
 rainbowBtn.addEventListener('click', () => updateCurrentMode('rainbow'));
 eraserBtn.addEventListener('click', () => updateCurrentMode('erase'));
 shadingBtn.addEventListener('click', () => updateCurrentMode('shade'));
-colorBtn.addEventListener('click', () => updateCurrentMode('fill'));
-// clearBoard works with no argument because it's waiting for the event as a
-// argument which it receives on a click. That's why I needed to use anonymous
-// functions above
-colorPick.addEventListener('input', updateColor);
+colorBtn.addEventListener('click', () => updateCurrentMode('color'));
 clearBtn.addEventListener('click', clearBoard);
+toggleBtn.addEventListener('click', updateCurrentDrawMode);
+colorPick.addEventListener('input', updateCurrentColor);
 slider.addEventListener('input', changeSliderValue);
+
+grid.addEventListener('mousedown', () => isMouseDown = true);
+grid.addEventListener('mouseup', () => isMouseDown = false);
 
 createGrid(currentSize);
 
-// add a function to update buttons to highlight which one is selected
-
-// function for drag mode?
-// where to check mode? event listener for drag? (check if drag is active)

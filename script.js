@@ -4,6 +4,7 @@ let currentSize = 16;
 let currentDrawMode = 'hover';
 let isMouseDown = false;
 
+const body = document.querySelector('body');
 const grid = document.querySelector('.grid-container');
 const colorBtn = document.querySelector('.color');
 const rainbowBtn = document.querySelector('.rainbow');
@@ -28,7 +29,6 @@ grid.addEventListener('mouseover', (event) => {
 })
 
 grid.addEventListener('mousedown', (event) => {
-    isMouseDown = true;
     const tile = event.target;
 
     if (tile.parentElement === grid) {
@@ -161,7 +161,7 @@ colorPick.addEventListener('input', updateCurrentColor);
 slider.addEventListener('input', changeSliderValue);
 
 grid.addEventListener('mousedown', () => isMouseDown = true);
-grid.addEventListener('mouseup', () => isMouseDown = false);
+body.addEventListener('mouseup', () => isMouseDown = false);
 
 createGrid(currentSize);
 updateActiveButton('color');

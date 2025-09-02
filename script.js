@@ -15,6 +15,29 @@ const colorPick = document.querySelector('.color-picker');
 const slider = document.querySelector('.slider');
 const sliderValue = document.querySelector('.slider-value');
 
+grid.addEventListener('mouseover', (event) => {
+    const tile = event.target;
+    
+    if (tile.parentElement === grid) {
+        // the second condition after || is necessary to allow coloring of
+        // more than 1 tile at a time after click and hold with drag mode
+        if (currentDrawMode == 'hover' || currentDrawMode == 'drag' && isMouseDown) {
+            draw(tile);
+        }
+    }
+})
+
+grid.addEventListener('mousedown', (event) => {
+    isMouseDown = true;
+    const tile = event.target;
+
+    if (tile.parentElement === grid) {
+        if (currentDrawMode == 'drag') {
+            draw(tile);
+        }
+    }
+})
+
 function createGrid(tilesPerSide) {
     grid.replaceChildren();
     const totalTiles = tilesPerSide * tilesPerSide;
@@ -30,21 +53,6 @@ function createGrid(tilesPerSide) {
             height: calc(100% / ${tilesPerSide});
             user-select: none;
         `;
-        
-        // the potential 10,000 event listeners need to be reduced here
-        tile.addEventListener('mouseover', () => {
-            // the second condition after || is necessary to allow coloring of
-            // more than 1 tile at a time after click and hold with drag mode
-            if (currentDrawMode == 'hover' || currentDrawMode == 'drag' && isMouseDown) {
-                draw(tile);
-            }
-        })
-        
-        tile.addEventListener('mousedown', () => {
-            if (currentDrawMode == 'drag') {
-                draw(tile);
-            }
-        })
     }
 }
 
@@ -157,8 +165,3 @@ grid.addEventListener('mouseup', () => isMouseDown = false);
 
 createGrid(currentSize);
 updateActiveButton('color');
-
-// TO DO:
-
-// remove the 10000 event listeners (refactor: Reduce number of event listeners to improve performance)
-// scale the etch a sketch area based on client window size (use dev tools device viewer)

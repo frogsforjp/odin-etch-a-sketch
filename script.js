@@ -28,6 +28,7 @@ function createGrid(tilesPerSide) {
             opacity: 0;
             width: calc(100% / ${tilesPerSide});
             height: calc(100% / ${tilesPerSide});
+            user-select: none;
         `;
         
         // the potential 10,000 event listeners need to be reduced here
@@ -39,7 +40,7 @@ function createGrid(tilesPerSide) {
             }
         })
         
-        tile.addEventListener('mousedown', () => {
+        tile.addEventListener('mousedown', (e) => {
             if (currentDrawMode == 'drag') {
                 draw(tile);
             }
@@ -117,7 +118,6 @@ function changeSliderValue(event) {
 }
 
 function updateActiveButton(mode) {
-    // maybe there's a better way to write this?
     colorBtn.classList.remove('active-button');
     rainbowBtn.classList.remove('active-button');
     shadeBtn.classList.remove('active-button');
@@ -163,4 +163,4 @@ updateActiveButton('color');
 // CSS styling + remove redundant classes
 // remove the 10000 event listeners (refactor: Reduce number of event listeners to improve performance)
 // bugfix for drag function grabbing tiles instead of dragging
-// scale the etch a sketch area based on client window size
+// scale the etch a sketch area based on client window size (use dev tools device viewer)

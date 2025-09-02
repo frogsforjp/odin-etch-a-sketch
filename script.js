@@ -34,13 +34,13 @@ function createGrid(tilesPerSide) {
         // the potential 10,000 event listeners need to be reduced here
         tile.addEventListener('mouseover', () => {
             // the second condition after || is necessary to allow coloring of
-            // more than 1 tile at a time after clicking with drag mode
+            // more than 1 tile at a time after click and hold with drag mode
             if (currentDrawMode == 'hover' || currentDrawMode == 'drag' && isMouseDown) {
                 draw(tile);
             }
         })
         
-        tile.addEventListener('mousedown', (e) => {
+        tile.addEventListener('mousedown', () => {
             if (currentDrawMode == 'drag') {
                 draw(tile);
             }
@@ -160,7 +160,5 @@ updateActiveButton('color');
 
 // TO DO:
 
-// CSS styling + remove redundant classes
 // remove the 10000 event listeners (refactor: Reduce number of event listeners to improve performance)
-// bugfix for drag function grabbing tiles instead of dragging
 // scale the etch a sketch area based on client window size (use dev tools device viewer)
